@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>*Republic Day* Celebration - Bharat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+            min-height: 100vh;
+        }
+
+        /* Indian Flag Animation */
+        .flag-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 20px auto;
+            perspective: 1000px;
+        }
+
+        .flag {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        .flag-stripe {
+            width: 100%;
+            height: 33.33%;
+            position: absolute;
+        }
+
+        .saffron {
+            background: #ff9933;
+            top: 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .white {
+            background: #ffffff;
+            top: 33.33%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .green {
+            background: #138808;
+            bottom: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .chakra {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000080;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 4s linear infinite;
+        }
+
+        .chakra::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 40%, #000080 40%, #000080 42%, transparent 42%);
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(-5deg) rotateX(2deg); }
+            50% { transform: rotateY(0deg) rotateX(-2deg); }
+            75% { transform: rotateY(5deg) rotateX(2deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Fireworks Animation */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: firework 2s ease-out infinite;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff9933, #000080, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 20px rgba(255, 153, 51, 0.5); }
+            to { text-shadow: 0 0 30px rgba(19, 136, 8, 0.8); }
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff9933;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fireworks Container -->
+    <div class="fireworks" id="fireworks"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="flag-container">
+            <div class="flag">
+                <div class="flag-stripe saffron"></div>
+                <div class="flag-stripe white">
+                    <div class="chakra"></div>
+                </div>
+                <div class="flag-stripe green"></div>
+            </div>
+        </div>
+
+        <h1>Happy Republic Day!</h1>
+        <p class="text-2xl text-white font-semibold mb-8">Celebrating Freedom and Unity</p>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        <button onclick="startCelebration()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+            Start Celebration
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Republic Day Celebration | Proud to be Indian</p>
+    </footer>
+
+    <script>
+        // Fireworks Animation
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 100 + '%';
+            
+            const colors = ['#ff9933', '#ffffff', '#138808', '#000080'];
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.getElementById('fireworks').appendChild(firework);
+            
+            setTimeout(() => {
+                firework.remove();
+            }, 2000);
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const republicDay = new Date(2025, 7, 15).getTime(); // August 15, 2025
+            
+            const distance = republicDay - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Start Celebration Function
+        function startCelebration() {
+            // Create multiple fireworks
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFirework();
+                }, i * 200);
+            }
+            
+            // Show success message
+            setTimeout(() => {
+                alert('Jai Hind! Happy Republic Day! 🇮🇳');
+            }, 1000);
+        }
+
+        // Continuous fireworks (subtle)
+        setInterval(createFirework, 3000);
+    </script>
+</body>
+</html>
